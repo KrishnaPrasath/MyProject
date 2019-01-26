@@ -1,0 +1,27 @@
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Date;
+
+public class ScanXan {
+    public static void main(String args[]) {
+        //Sample HTTP server prints date
+        ServerSocket server = null; //creating a server
+        try {
+             server = new ServerSocket(8080); //assigning a port to the server
+        }catch(IOException x){
+            System.out.println("Exception caught : " +x);
+        }
+        while(true){
+            try(Socket socket=server.accept()){ //Opening socker resource
+                Date today=new Date(); //Creating Date instance
+                String httpResponse="HTTP/1.1 200 OK\r\n\r\n"+today; //No idea just forms the string in a format
+                socket.getOutputStream().write(httpResponse.getBytes("UTF-8")); //prints the date using a stream since the write() returns a byte
+
+            }catch(Exception e){
+
+            }
+        }
+        }
+    }
+
